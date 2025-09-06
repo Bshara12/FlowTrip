@@ -66,7 +66,7 @@ const Auth = () => {
     if (authSuccess === 'true' && token) {
       // Clear URL parameters after processing
       window.history.replaceState({}, document.title, window.location.pathname);
-      
+
       handleAuthSuccess({
         token: token,
         name: decodeURIComponent(userName || ''),
@@ -177,7 +177,7 @@ const Auth = () => {
               navigate("/Admin/dashboard/requist");
               break;
             case "Vehicle Owner":
-              navigate("/VehiclyOwner/dashbord/vehiclys");
+              navigate("/VehiclyOwner/dashboard/vehiclys");
               break;
             case "Tourism Company":
               navigate("/TourismCompany/dashboard/packages");
@@ -186,10 +186,13 @@ const Auth = () => {
               navigate("/");
               break;
             case "Airlines Company":
-              navigate("/AirlinesCompany/dashbord");
+              navigate("/AirlinesCompany/dashboard");
+              break;
+            case "Activity Owner":
+              // navigate("/profile/dashboard");
               break;
             default:
-              navigate("/Accommodation/dashbord");
+              navigate("/Accommodation/dashboard");
               break;
           }
         }, 1500);
@@ -366,11 +369,11 @@ const Auth = () => {
     }
   };
 
-  
+
   const Sociallogin = () => {
     // Store current URL to return to after OAuth
     localStorage.setItem('oauth_redirect', window.location.pathname);
-    
+
     // Redirect to Google OAuth
     window.location.href = "http://127.0.0.1:8000/auth/google";
   };

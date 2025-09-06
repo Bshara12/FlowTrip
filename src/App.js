@@ -231,6 +231,7 @@ import AllAcyivit from "./User/AllActivity";
 import CarFilter from "./User/CarFilter";
 import NotRegistered from "./Component/NotRegistered";
 import AboutUs from "./User/AboutUs";
+import Bookings from "./User/Boocking";
 
 function App() {
   return (
@@ -313,6 +314,7 @@ function App() {
       <Route path="car-filter" element={<CarFilter />} />
       <Route path="not-registered" element={<NotRegistered />} />
       <Route path="about-us" element={<AboutUs />} />
+      <Route path="boocking" element={<Bookings />} />
     </Routes>
   );
 }

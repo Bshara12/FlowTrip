@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Admin/DashBourd.css";
 import { baseURL, LOGOUT } from "../Api/Api";
 
-// تعريف المينيوهات لكل نوع مستخدم
 const menus = {
   admin: [
     { path: "requist", label: "Requists", icon: "fas fa-clipboard-list" },
@@ -47,7 +46,7 @@ export default function DashboardLayout({ role }) {
   }, [location.pathname]);
 
   const handleLogout = async () => {
-    const token = Cookies.get("authToken") || localStorage.getItem("token");
+    const token = Cookies.get("token") || localStorage.getItem("token");
     try {
       const response = await fetch("127.0.0.1:8000/api/Logout", {
         method: "GET",

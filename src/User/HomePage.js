@@ -4,8 +4,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
-// <<<<<<< HEAD
-  FaBars,FaTimes,FaUser,FaMoon,FaGlobe,FaPhone,FaHome,FaSuitcase,FaCar,FaHiking,FaRobot,FaBrain,FaInfoCircle,FaEnvelope,} from "react-icons/fa";
+  // <<<<<<< HEAD
+  FaBars, FaTimes, FaUser, FaMoon, FaGlobe, FaPhone, FaHome, FaSuitcase, FaCar, FaHiking, FaRobot, FaBrain, FaInfoCircle, FaEnvelope,
+} from "react-icons/fa";
 import PackageCard from "../Component/PackageCard";
 import Loader from "../Component/Loader";
 import loadingImage from "../Assets/Loading_icon.gif";
@@ -41,7 +42,7 @@ export default function Homepage() {
   const closeChatBot = () => setIsChatBotOpen(false);
 
   const handleLogout = async () => {
-    const token = Cookies.get("authToken") || localStorage.getItem("token");
+    const token = Cookies.get("token") || localStorage.getItem("token");
     try {
       const response = await fetch("127.0.0.1:8000/api/Logout", {
         method: "GET",
@@ -59,7 +60,7 @@ export default function Homepage() {
         Cookies.remove("email");
         Cookies.remove("role");
         Cookies.remove("authToken");
-        
+
         // Redirect to home
         window.location.href = "/";
       }
@@ -202,7 +203,7 @@ export default function Homepage() {
           <div className="chatbot-icon" onClick={() => setIsChatBotOpen(true)} title="Chat Bot">
             <img src={chatbotGif} alt="Chat Bot" className="chatbot-gif" />
           </div>
-          
+
           {/* Conditional Register/Logout Button */}
           {TOKEN ? (
             <div className="auth-btn logout-btn" onClick={() => setShowLogoutConfirm(true)} title="Logout">
@@ -215,7 +216,7 @@ export default function Homepage() {
               <span>Register</span>
             </div>
           )}
-          
+
           <div className="menu-icon" onClick={() => setIsSidebarOpen(true)} title="Settings">
             <FaBars />
           </div>
@@ -248,6 +249,10 @@ export default function Homepage() {
           <li onClick={() => navigate('/trip')}>
             <i className="fas fa-brain"></i>
             <p>Make a plan</p>
+          </li>
+          <li onClick={() =>navigate('/boocking')}>
+            <i class="fa-solid fa-suitcase-rolling"></i>
+            <p>my boocking</p>
           </li>
           <li onClick={() => navigate('/about-us')}>
             <i className="fas fa-info-circle"></i>
