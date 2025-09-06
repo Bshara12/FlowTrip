@@ -49,7 +49,7 @@ export default function DashboardLayout({ role }) {
   const handleLogout = async () => {
     const token = Cookies.get("authToken") || localStorage.getItem("token");
     try {
-      const response = await fetch(`${baseURL}/${LOGOUT}`, {
+      const response = await fetch("127.0.0.1:8000/api/Logout", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

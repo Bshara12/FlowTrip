@@ -150,13 +150,13 @@
 }
 
 .popup-box {
-  background: gray;
+  background: var(--color4);
   padding: 20px 30px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: inset 0px 0px 20px #625800;
+  box-shadow: inset 0px 0px 20px var(--color2);
   animation: popIn 0.3s ease-in-out;
-  color: #fcd904;
+  color: var(--color1);
 }
 
 .popup-buttons {

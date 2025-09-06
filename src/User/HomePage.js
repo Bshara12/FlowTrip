@@ -19,6 +19,8 @@ import ActivityCardSkeleton from "../Component/ActivityCardSkeleton";
 import AccommodationCardSkeleton from "../Component/AccommodationCardSkeleton";
 // >>>>>>> 9344e3a299f530d174fcffbc7bfe1b09f3f8e2a5
 import "./HomePage.css";
+import { TOKEN, baseURL, LOGOUT } from "../Api/Api";
+import Cookies from "js-cookie";
 
 export default function Homepage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,10 +34,49 @@ export default function Homepage() {
 
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const navigate = useNavigate();
   const closeSidebar = () => setIsSidebarOpen(false);
   const closeChatBot = () => setIsChatBotOpen(false);
+
+  const handleLogout = async () => {
+    const token = Cookies.get("authToken") || localStorage.getItem("token");
+    try {
+      const response = await fetch("127.0.0.1:8000/api/Logout", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        // Clear all stored data
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
+        localStorage.removeItem("role");
+        Cookies.remove("token");
+        Cookies.remove("email");
+        Cookies.remove("role");
+        Cookies.remove("authToken");
+        
+        // Redirect to home
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Even if logout fails, clear local data
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      localStorage.removeItem("role");
+      Cookies.remove("token");
+      Cookies.remove("email");
+      Cookies.remove("role");
+      Cookies.remove("authToken");
+      window.location.href = "/";
+    }
+    setShowLogoutConfirm(false);
+  };
 
   useEffect(() => {
     const fetchAccommodations = async () => {
@@ -161,6 +202,20 @@ export default function Homepage() {
           <div className="chatbot-icon" onClick={() => setIsChatBotOpen(true)} title="Chat Bot">
             <img src={chatbotGif} alt="Chat Bot" className="chatbot-gif" />
           </div>
+          
+          {/* Conditional Register/Logout Button */}
+          {TOKEN ? (
+            <div className="auth-btn logout-btn" onClick={() => setShowLogoutConfirm(true)} title="Logout">
+              <i className="fa-solid fa-right-from-bracket"></i>
+              <span>Logout</span>
+            </div>
+          ) : (
+            <div className="auth-btn register-btn" onClick={() => navigate("/register")} title="Register">
+              <FaUser />
+              <span>Register</span>
+            </div>
+          )}
+          
           <div className="menu-icon" onClick={() => setIsSidebarOpen(true)} title="Settings">
             <FaBars />
           </div>
@@ -403,6 +458,26 @@ export default function Homepage() {
               )}
               <button className="btn btn-danger" onClick={closeActivityModal}>
                 <FaTimes style={{ marginRight: 6 }} /> Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Logout Confirmation Popup */}
+      {showLogoutConfirm && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <p>Are you sure you want to log out?</p>
+            <div className="popup-buttons">
+              <button onClick={handleLogout} className="confirm-btn">
+                Yes
+              </button>
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="cancel-btn"
+              >
+                Cancel
               </button>
             </div>
           </div>
