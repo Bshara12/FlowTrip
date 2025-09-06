@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./TripSummary.css";
 import { baseURL, MAKEITINERARY } from "../Api/Api";
+import TripSummarySkeleton from "./TripSummarySkeleton";
 
 export default function TripSummary() {
   const location = useLocation();
@@ -46,12 +47,16 @@ export default function TripSummary() {
   }, [destination, days, budget]);
 
   return (
-    <div className="summary-container">
-      {loading && <p className="loading">⏳ Loading plan...</p>}
-      {error && <p className="error">{error}</p>}
+    <>
+      {loading && <TripSummarySkeleton days={days} />}
+      {error && (
+        <div className="summary-container">
+          <p className="error">{error}</p>
+        </div>
+      )}
 
       {plan && (
-        <>
+        <div className="summary-container">
           <h1 className="title"><i className="fa-solid fa-plane-departure"></i> {plan.title}</h1>
           <p className="summary">{plan.summary}</p>
 
@@ -86,11 +91,11 @@ export default function TripSummary() {
             </ul>
           </div>
 
-          <button className="back-btn" onClick={() => navigate("/trip")}>
+          <button className="back-btn" onClick={() => navigate("/trip",{ replace: true })}>
             <i className="fa-solid fa-arrow-left"></i> رجوع
           </button>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
