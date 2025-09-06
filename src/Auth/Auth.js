@@ -186,10 +186,10 @@ const Auth = () => {
               navigate("/");
               break;
             case "Airlines Company":
-              navigate("/AirlinesCompany/dashbord");
+              navigate("/AirlinesCompany/dashboard");
               break;
             default:
-              navigate("/Accommodation/dashbord");
+              navigate("/Accommodation/dashboard");
               break;
           }
         }, 1500);

@@ -2,7 +2,8 @@ import SearchInput from "./SearchInput";
 import "./ShowRecordsContainer.css";
 import { useNavigate } from "react-router-dom";
 import AddButton from "./AddButton";
-import Loader from "../Component/Loader";
+import ShowRecordsCardSkeleton from "./ShowRecordsCardSkeleton";
+import MonthCardSkeleton from "./MonthCardSkeleton";
 import { useState } from "react";
 import Radio from "../Component/RadioButton";
 import BackButton from "./BackButton";
@@ -33,9 +34,40 @@ const ShowRecordsContainer = ({
   const [selectedMonth, setSelectedMonth] = useState(null);
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div className="show-records-container">
+        <div className="show-records-header-section">
+          <h1 className="show-records-main-title">Loading...</h1>
+          {userType === "Hotel" && (
+            <div className="stats-card">
+              <div className="stat-item">
+                <span className="stat-number">--</span>
+                <span className="stat-label">Total Rooms</span>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {btnn && <Radio view={view} setView={setView} />}
+        
+        <div className="records-grid">
+          {Array.from({ length: 6 }).map((_, index) => {
+            console.log("Skeleton Debug:", { advanced, userType, condition: advanced && userType !== "Hotel" });
+            return advanced && userType !== "Hotel" ? (
+              <MonthCardSkeleton key={index} />
+            ) : (
+              <ShowRecordsCardSkeleton 
+                key={index} 
+                hasHeader={userType === "Hotel" || showRoomDetails}
+                hasFooter={userType === "Hotel"}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
   }
-console.log(userType)
+
   if (error) {
     return (
       <div className="error-container">

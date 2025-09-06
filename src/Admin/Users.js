@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SubAdminCard from "../Component/SubAdminCard";
+import SubAdminCardSkeleton from "../Component/SubAdminCardSkeleton";
 import ConfirmDialog from "../Component/ConfirmDialog";
 import "./OwnerSearch.css";
-import Loader from "../Component/Loader";
 import { baseURL, CREATE_SUBADMIN, FILTER_USERS, GET_ALL_UESER, TOKEN } from "../Api/Api";
 
 
@@ -122,7 +122,31 @@ export default function Users() {
   };
 
   if (loading) {
-    return <Loader/>;
+    return (
+      <div className="fs">
+        <div className="owner-flex w-100">
+          <div className="search-flex users">
+            <div className="owner-input-container">
+              <input
+                placeholder="Enter name"
+                type="text"
+                disabled
+              />
+            </div>
+            <button className="owner-search-button users" disabled>
+              <svg viewBox="0 0 512 512" className="svgIcon">
+                <path d="M505 442.7L405.3 343c28.4-34.9 45.5-79 45.5-127C450.8 96.5 354.3 0 225.4 0S0 96.5 0 216.1s96.5 216.1 216.1 216.1c48 0 92.1-17.1 127-45.5l99.7 99.7c4.5 4.5 10.6 7 17 7s12.5-2.5 17-7c9.4-9.4 9.4-24.6 0-34zM216.1 392.2c-97.2 0-176.1-78.9-176.1-176.1S118.9 39.9 216.1 39.9s176.1 78.9 176.1 176.1-78.9 176.1-176.1 176.1z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div className="owner-list-container">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <SubAdminCardSkeleton key={index} />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (error) {

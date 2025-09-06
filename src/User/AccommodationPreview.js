@@ -10,7 +10,6 @@ import BackButton from "../Component/BackButton";
 import Booking from "../Component/Booking";
 import Loader from "../Component/Loader";
 
-const token = TOKEN;
 
 export default function AccommodationPreview() {
   const navigate = useNavigate();
@@ -72,7 +71,7 @@ export default function AccommodationPreview() {
         paymentPayload,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${TOKEN}`,
             "Content-Type": "application/json",
           },
         }
@@ -345,7 +344,7 @@ export default function AccommodationPreview() {
           </div>
         </div>
 
-        <div
+        {TOKEN && <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -362,7 +361,7 @@ export default function AccommodationPreview() {
             <div className="acc-preview-hover acc-preview-bt-6"></div>
             <button className="acc-preview-bookButton"></button>
           </div>
-        </div>
+        </div>}
       </div>
 
       {showBookingForm && (

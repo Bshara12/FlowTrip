@@ -600,7 +600,7 @@ export default function OwnerDetailsComponent({ id, token, isAdmin }) {
           onClick={() => setIsEditing(true)}
           style={{
             position: "fixed",
-            top: "2rem",
+            top: "4rem",
             right: "1.5rem",
             zIndex: "100",
           }}

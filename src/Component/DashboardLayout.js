@@ -6,6 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Admin/DashBourd.css";
 import { baseURL, LOGOUT } from "../Api/Api";
 
+const role = Cookies.get("role");
+console.log(role)
+
+
 // تعريف المينيوهات لكل نوع مستخدم
 const menus = {
   admin: [
@@ -29,8 +33,8 @@ const menus = {
   Accommodation: [
     { path: "profile", label: "Profile", icon: "fas fa-user" },
     { path: "records", label: "Records", icon: "fas fa-clipboard-list" },
-    { path: "rooms", label: "Rooms", icon: "fas fa-bed" },
-    { path: "offers", label: "Offers", icon: "fas fa-gift" },
+    ...(role === "Hotel" ? [{ path: "rooms", label: "Rooms", icon: "fas fa-bed" }] : []),
+    ...(role === "Hotel" ? [{ path: "offers", label: "Offers", icon: "fas fa-gift" }] : []),
     { path: "advanced", label: "Advanced", icon: "fas fa-cogs" },
   ],
 };
@@ -59,9 +63,10 @@ export default function DashboardLayout({ role }) {
       if (response.ok) {
         localStorage.removeItem("token");
         Cookies.remove("authToken");
+        Cookies.remove("token");
         toast.success("Logged out successfully!");
         setTimeout(() => {
-          navigate("/login");
+          navigate("/register");
         }, 1500);
       } else {
         toast.error("Logout failed. Please try again.");

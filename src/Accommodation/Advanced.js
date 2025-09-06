@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ShowRecordsContainer from "../Component/ShowRecordsContainer";
-import Loader from "../Component/Loader";
 import "./Advanced.css";
 import { TOKEN } from "../Api/Api";
-
+import Cookies from "js-cookie";
+ 
 export default function Advanced() {
   const [view, setView] = useState("popular");
 
@@ -25,15 +25,13 @@ export default function Advanced() {
   const [showRoomDetails, setShowRoomDetails] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const userType = localStorage.getItem('role');
+  const userType = Cookies.get("role");
 
   useEffect(() => {
     setBaseUrl(urlMap[view] || urlMap.popular);
   }, [view]);
 
   useEffect(() => {
-    if (!userType) return;
     if (userType === "Hotel") {
       fetchRoomsData();
     } else {
@@ -138,9 +136,7 @@ export default function Advanced() {
       console.error("Error filtering records:", err);
     }
   };
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <ShowRecordsContainer
       loading={loading}
       error={error}
