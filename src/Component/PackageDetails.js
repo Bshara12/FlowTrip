@@ -162,37 +162,37 @@ const PackageDetails = () => {
     }
   };
 
-  const handleRatingChange = async (e) => {
-    const selectedRating = e.target.value;
-    setRating(selectedRating);
+  // const handleRatingChange = async (e) => {
+  //   const selectedRating = e.target.value;
+  //   setRating(selectedRating);
 
-    const token = Cookies.get("token") || localStorage.getItem("token");
-    if (!token) {
-      navigate("/not-registered");
-      return;
-    }
+  //   const token = Cookies.get("token") || localStorage.getItem("token");
+  //   if (!token) {
+  //     navigate("/not-registered");
+  //     return;
+  //   }
 
-    try {
-      await axios.post(
-        "http://127.0.0.1:8000/api/rate-owner",
-        {
-          owner_id: packageData.tourism_company.owner_id,
-          rating: selectedRating,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  //   try {
+  //     await axios.post(
+  //       "http://127.0.0.1:8000/api/rate-owner",
+  //       {
+  //         owner_id: packageData.tourism_company.owner_id,
+  //         rating: selectedRating,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
-      toast.success("Thanks for rating!", { position: "top-right" });
-    } catch (err) {
-      console.error("Error submitting rating:", err);
-      toast.error("Failed to submit rating.", { position: "top-right" });
-    }
-  };
+  //     toast.success("Thanks for rating!", { position: "top-right" });
+  //   } catch (err) {
+  //     console.error("Error submitting rating:", err);
+  //     toast.error("Failed to submit rating.", { position: "top-right" });
+  //   }
+  // };
 
   const handleBookingNavigation = (paymentMethod) => {
     const token = Cookies.get("token") || localStorage.getItem("token");
@@ -293,7 +293,7 @@ const PackageDetails = () => {
           <p className="price">Also available with points</p>
         )}
 
-        {/* Rating Section */}
+        {/* Rating Section
         {userType !== "tourism" && (
           <div style={{
             marginTop: "20px",
@@ -321,7 +321,7 @@ const PackageDetails = () => {
               </p>
             )}
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="elementsSection">
@@ -527,7 +527,7 @@ const PackageDetails = () => {
               <DeleteButton />
             </div>
           </div>
-        ) : (
+        ) :(!userRole || userRole === "user" || userRole === "User") ? (
           // <div
           //   data-tooltip={`Price: $${packageData.total_price}`}
           //   className="buttonpriceanimation"
@@ -602,7 +602,7 @@ const PackageDetails = () => {
             )}
           </div>
 
-        )}
+        ):null}
       </div>
       {/* Edit Modal */}
       {showEditModal && (

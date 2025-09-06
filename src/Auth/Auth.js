@@ -174,13 +174,13 @@ const Auth = () => {
         setTimeout(() => {
           switch (role) {
             case "admin":
-              navigate("/Admin/dashbord/requist");
+              navigate("/Admin/dashboard/requist");
               break;
             case "Vehicle Owner":
               navigate("/VehiclyOwner/dashbord/vehiclys");
               break;
             case "Tourism Company":
-              navigate("/TourismCompany/dashbord/packages");
+              navigate("/TourismCompany/dashboard/packages");
               break;
             case "User":
               navigate("/");

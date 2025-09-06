@@ -304,16 +304,15 @@ function App() {
       <Route path="/trip" element={<TripForm />} />
       <Route path="/summary" element={<TripSummary />} />
       <Route path="/" element={<Homepage />} />
-      <Route path="User" element={<UserDashboard />}>
-        <Route path="accommodation-filter" element={<AccommodationFilter />} />
-        <Route path="activity-filter" element={<ActivityFilter />} />
-      </Route>
+      {/* <Route path="User" element={<UserDashboard />}> */}
+      <Route path="accommodation-filter" element={<AccommodationFilter />} />
+      <Route path="activity-filter" element={<ActivityFilter />} />
       <Route path="accommodation-preview/:id" element={<AccommodationPreview />} />
-      <Route path="/packages" element={<Packages/>}/>
-      <Route path="/All-Activity" element={<AllAcyivit/>} />
-      <Route path="car-filter" element={<CarFilter/>} />
-      <Route path="not-registered" element={<NotRegistered/>} />
-      <Route path="about-us" element={<AboutUs/>}/>
+      <Route path="/packages" element={<Packages />} />
+      <Route path="/All-Activity" element={<AllAcyivit />} />
+      <Route path="car-filter" element={<CarFilter />} />
+      <Route path="not-registered" element={<NotRegistered />} />
+      <Route path="about-us" element={<AboutUs />} />
     </Routes>
   );
 }
