@@ -6,12 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Admin/DashBourd.css";
 import { baseURL, LOGOUT } from "../Api/Api";
 
-<<<<<<< HEAD
 const role = Cookies.get("role");
 
 // تعريف المينيوهات لكل نوع مستخدم
-=======
->>>>>>> 052ecad1ce51d58e88937ae5b7b769f20bb670a2
 const menus = {
   admin: [
     { path: "requist", label: "Requists", icon: "fas fa-clipboard-list" },
@@ -80,11 +77,8 @@ export default function DashboardLayout({ role }) {
         Cookies.remove("token");
         toast.success("Logged out successfully!");
         setTimeout(() => {
-<<<<<<< HEAD
           navigate("/register");
-=======
           navigate("/");
->>>>>>> 052ecad1ce51d58e88937ae5b7b769f20bb670a2
         }, 1500);
       } else {
         toast.error("Logout failed. Please try again.");

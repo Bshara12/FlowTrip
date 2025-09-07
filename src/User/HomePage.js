@@ -5,20 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
   // <<<<<<< HEAD
-  FaBars,
-  FaTimes,
-  FaUser,
-  FaMoon,
-  FaGlobe,
-  FaPhone,
-  FaHome,
-  FaSuitcase,
-  FaCar,
-  FaHiking,
-  FaRobot,
-  FaBrain,
-  FaInfoCircle,
-  FaEnvelope,
   FaBars, FaTimes, FaUser, FaMoon, FaGlobe, FaPhone, FaHome, FaSuitcase, FaCar, FaHiking, FaRobot, FaBrain, FaInfoCircle, FaEnvelope,
 } from "react-icons/fa";
 import PackageCard from "../Component/PackageCard";
@@ -262,11 +248,6 @@ export default function Homepage() {
             </div>
           )}
 
-          <div
-            className="menu-icon"
-            onClick={() => setIsSidebarOpen(true)}
-            title="Settings"
-          >
           <div className="menu-icon" onClick={() => setIsSidebarOpen(true)} title="Settings">
             <FaBars />
           </div>
@@ -356,7 +337,6 @@ export default function Homepage() {
                 )}
             </>
           )}
-          <li onClick={() => navigate("/about-us")}>
           <li onClick={() =>navigate('/boocking')}>
             <i class="fa-solid fa-suitcase-rolling"></i>
             <p>my boocking</p>
