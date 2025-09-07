@@ -4,8 +4,21 @@ import axios from "axios";
 import "./Packages.css";
 import PackageCard from "../Component/PackageCard";
 
-import { baseURL, GET_ALL_PACKAGE, TOKEN } from "../Api/Api";
+import { baseURL, GET_ALL_PACKAGE } from "../Api/Api";
 import PackageCardSkeleton from "../Component/PackageCardSkeleton";
+
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+};
+let TOKEN = getCookie("token");
+
+if (!TOKEN) {
+
+  TOKEN = localStorage.getItem("token");
+}
 
 const token = TOKEN;
 
@@ -16,14 +29,11 @@ export default function Packages() {
 
   useEffect(() => {
     const fetchPackages = async () => {
-      // Get token from localStorage
-      const token = TOKEN;
-
-      if (!token) {
-        console.error("No token found in localStorage");
-        setLoading(false);
-        return;
-      }
+      // if (!token) {
+      //   console.error("No token found in localStorage");
+      //   setLoading(false);
+      //   return;
+      // }
 
       try {
         const res = await axios.get(`${baseURL}/${GET_ALL_PACKAGE}`, {

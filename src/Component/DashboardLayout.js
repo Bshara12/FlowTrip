@@ -20,10 +20,13 @@ const menus = {
     { path: "packages", label: "Packages", icon: "fas fa-box" },
     { path: "records", label: "Records", icon: "fas fa-clipboard-list" },
     { path: "profile", label: "Profile", icon: "fas fa-user" },
+    { path: "Evaluation", label: "Evaluation", icon: "fas fa-star" },
   ],
   "Vehicle Owner": [
     { path: "vehiclys", label: "Vehiclys", icon: "fas fa-car" },
     { path: "profile", label: "Profile", icon: "fas fa-user" },
+    { path: "Evaluation", label: "Evaluation", icon: "fas fa-star" },
+
   ],
   Accommodation: [
     { path: "profile", label: "Profile", icon: "fas fa-user" },
@@ -31,6 +34,7 @@ const menus = {
     { path: "rooms", label: "Rooms", icon: "fas fa-bed" },
     { path: "offers", label: "Offers", icon: "fas fa-gift" },
     { path: "advanced", label: "Advanced", icon: "fas fa-cogs" },
+    { path: "Evaluation", label: "Evaluation", icon: "fas fa-star" },
   ],
 };
 

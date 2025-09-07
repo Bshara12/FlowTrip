@@ -24,7 +24,6 @@ import {
   EDIT_PACKADE,
   GET_PACKAGE,
   PAYBYPOINT,
-  TOKEN,
   EMAIL,
   ROLE,
 } from "../Api/Api";
@@ -51,7 +50,10 @@ const PackageDetails = () => {
   const fallbackImage =
     "https://images.unsplash.com/photo-1504674900247-0877df9cc836";
   const navigate = useNavigate();
-  const token = TOKEN;
+
+  const token = Cookies.get("token") || localStorage.getItem("token");
+  console.log("token");
+  console.log(token);
 
   useEffect(() => {
     const fetchPackage = async () => {
@@ -104,7 +106,7 @@ const PackageDetails = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
@@ -124,7 +126,7 @@ const PackageDetails = () => {
     try {
       await axios.delete(`${baseURL}/${BASETOURISM}/${DELETE_PACKAGE}/${id}`, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success("Package deleted successfully", { position: "top-right" });
@@ -141,7 +143,7 @@ const PackageDetails = () => {
     try {
       const response = await axios.get(`${baseURL}/${PAYBYPOINT}/${id}`, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -241,19 +243,19 @@ const PackageDetails = () => {
     adaptiveHeight: true,
   };
 
-  const userType = localStorage.getItem("user_type");
-  const userRole = ROLE;
-  
+  // const userType = localStorage.getItem("user_type");
+  const userRole =  Cookies.get("role") || localStorage.getItem("role");
+
   // Check if current user is the owner of this tourism company package
-  const isPackageOwner = packageData && 
-    packageData.tourism_company && 
-    packageData.tourism_company.owner && 
-    packageData.tourism_company.owner.user && 
+  const isPackageOwner = packageData &&
+    packageData.tourism_company &&
+    packageData.tourism_company.owner &&
+    packageData.tourism_company.owner.user &&
     packageData.tourism_company.owner.user.email === EMAIL;
-    
+
   // Check if user is tourism company from role
   const isTourismCompany = userRole === "Tourism Company" || userRole === "Tourism%20Company";
-  
+
   // Debug logs
   console.log("Debug PackageDetails:");
   console.log("userRole:", userRole);
@@ -527,7 +529,7 @@ const PackageDetails = () => {
               <DeleteButton />
             </div>
           </div>
-        ) :(!userRole || userRole === "user" || userRole === "User") ? (
+        ) : (!userRole || userRole === "user" || userRole === "User") ? (
           // <div
           //   data-tooltip={`Price: $${packageData.total_price}`}
           //   className="buttonpriceanimation"
@@ -602,7 +604,7 @@ const PackageDetails = () => {
             )}
           </div>
 
-        ):null}
+        ) : null}
       </div>
       {/* Edit Modal */}
       {showEditModal && (

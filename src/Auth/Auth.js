@@ -182,7 +182,7 @@ const Auth = () => {
             case "Tourism Company":
               navigate("/TourismCompany/dashboard/packages");
               break;
-            case "User":
+            case "user":
               navigate("/");
               break;
             case "Airlines Company":
@@ -377,9 +377,6 @@ const Auth = () => {
     // Redirect to Google OAuth
     window.location.href = "http://127.0.0.1:8000/auth/google";
   };
-
-
-
 
   return (
     <div className={`registercontainer ${isSignUp ? "sign-up-mode" : ""}`}>

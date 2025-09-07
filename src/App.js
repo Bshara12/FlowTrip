@@ -265,6 +265,7 @@ function App() {
         <Route path="rooms" element={<RoomsHome />} />
         <Route path="offers" element={<Offers />} />
         <Route path="advanced" element={<Advanced />} />
+        <Route path="Evaluation" element={<GetEvaluation/>} />
       </Route>
       <Route path="room-details/:id" element={<RoomDetails />} />
       <Route path="add-room" element={<AddRoom />} />
@@ -273,6 +274,7 @@ function App() {
       <Route path="VehiclyOwner/dashboard" element={<DashboardLayout role="Vehicle Owner" />}>
         <Route path="vehiclys" element={<Vehiclys />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="Evaluation" element={<GetEvaluation />} />
       </Route>
       <Route path="/vehicle/:id" element={<VehicleDetails />} />
       <Route path="/create-vehicle" element={<CreateVehicle />} />
@@ -284,6 +286,7 @@ function App() {
         <Route path="records" element={<TourismRecords />} />
         <Route path="records/:id" element={<PackageRecords />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="Evaluation" element={<GetEvaluation />} />
       </Route>
       <Route path="/add-package-element/:id" element={<AddPackageElement />} />
       <Route path="/add-package/step1" element={<AddPackageStep1 />} />
