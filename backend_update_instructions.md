@@ -18,7 +18,8 @@ Replace the `handleGoogleCallback()` method with this updated version:
         'name' => $new_user->name,
         'email' => $new_user->email,
         'id' => $new_user->id,
-        'role_id' => $new_user->role_id
+        'role_id' => $new_user->role_id,
+        'role'=>'user'
       ]);Frontend detects the callback parameters and logs the user in
 5. User gets redirected to home page ("/")
 

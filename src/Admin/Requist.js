@@ -8,6 +8,19 @@ const Requist = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+  let TOKEN = getCookie("token");
+
+  if (!TOKEN) {
+
+    TOKEN = localStorage.getItem("token");
+  }
+
   const token = TOKEN;
 
   useEffect(() => {

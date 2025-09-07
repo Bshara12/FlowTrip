@@ -37,8 +37,10 @@ const PackageElementDetails = () => {
   };
   
   const userRole = getUserRole();
+
   const token = `${TOKEN}`;
   
+
   // Debug: Check userRole value
   console.log("=== PackageElementDetails Debug ===");
   console.log("userRole:", userRole);
@@ -76,9 +78,9 @@ const PackageElementDetails = () => {
     const fetchElement = async () => {
       try {
         const response = await fetch(`${baseURL}/${BASETOURISM}/${GET_ELEMENT_PACKAGE_BYID}/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
         });
         if (response.ok) {
           const data = await response.json();
@@ -199,7 +201,7 @@ const PackageElementDetails = () => {
         </Slider>
       </div>
 
-      {userType === "tourism" && (
+      {userRole === "Tourism Company" && (
         <div className="imageActionButtons">
           <button
             className="imageControlBtn addBtn"
@@ -275,7 +277,7 @@ const PackageElementDetails = () => {
         <p className="elementDescription">{element?.discription || element?.description}</p>
       </div>
 
-      {userType === "tourism" && (
+      {userRole === "Tourism Company" && (
         <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1.5rem" }}>
           <div onClick={() => {
             setEditValues({

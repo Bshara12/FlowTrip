@@ -10,6 +10,19 @@ const AddVehicleImages = () => {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const fileInputRef = useRef(null);
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+  
+  let TOKEN = getCookie("token");
+  
+  if (!TOKEN) {
+  
+    TOKEN = localStorage.getItem("token");
+  }
   const token = TOKEN;
 
 useEffect(() => {
@@ -95,7 +108,7 @@ useEffect(() => {
       <div className="addvehicle-buttons">
         <button
           className="skip-btn animated-button"
-          onClick={() => navigate("/VehiclyOwner/dashboard/vehiclys")}
+          onClick={() => navigate("/VehicleOwner/dashboard/vehiclys")}
         >
           Skipe
         </button>
@@ -103,7 +116,7 @@ useEffect(() => {
         {images.length > 0 && (
           <button
             className="finish-btn animated-button"
-            onClick={() => navigate("/VehiclyOwner/dashboard/vehiclys")}
+            onClick={() => navigate("/VehicleOwner/dashboard/vehiclys")}
           >
            Finish
           </button>

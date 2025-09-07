@@ -6,9 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Admin/DashBourd.css";
 import { baseURL, LOGOUT } from "../Api/Api";
 
+<<<<<<< HEAD
 const role = Cookies.get("role");
 
 // تعريف المينيوهات لكل نوع مستخدم
+=======
+>>>>>>> 052ecad1ce51d58e88937ae5b7b769f20bb670a2
 const menus = {
   admin: [
     { path: "requist", label: "Requists", icon: "fas fa-clipboard-list" },
@@ -23,10 +26,13 @@ const menus = {
     { path: "packages", label: "Packages", icon: "fas fa-box" },
     { path: "records", label: "Records", icon: "fas fa-clipboard-list" },
     { path: "profile", label: "Profile", icon: "fas fa-user" },
+    { path: "Evaluation", label: "Evaluation", icon: "fas fa-star" },
   ],
   "Vehicle Owner": [
     { path: "vehiclys", label: "Vehiclys", icon: "fas fa-car" },
     { path: "profile", label: "Profile", icon: "fas fa-user" },
+    { path: "Evaluation", label: "Evaluation", icon: "fas fa-star" },
+
   ],
   Accommodation: [
     { path: "profile", label: "Profile", icon: "fas fa-user" },
@@ -38,6 +44,7 @@ const menus = {
       ? [{ path: "offers", label: "Offers", icon: "fas fa-gift" }]
       : []),
     { path: "advanced", label: "Advanced", icon: "fas fa-cogs" },
+    { path: "Evaluation", label: "Evaluation", icon: "fas fa-star" },
   ],
 };
 
@@ -58,7 +65,7 @@ export default function DashboardLayout({ role }) {
   }, [location.pathname]);
 
   const handleLogout = async () => {
-    const token = Cookies.get("authToken") || localStorage.getItem("token");
+    const token = Cookies.get("token") || localStorage.getItem("token");
     try {
       const response = await fetch("127.0.0.1:8000/api/Logout", {
         method: "GET",
@@ -73,7 +80,11 @@ export default function DashboardLayout({ role }) {
         Cookies.remove("token");
         toast.success("Logged out successfully!");
         setTimeout(() => {
+<<<<<<< HEAD
           navigate("/register");
+=======
+          navigate("/");
+>>>>>>> 052ecad1ce51d58e88937ae5b7b769f20bb670a2
         }, 1500);
       } else {
         toast.error("Logout failed. Please try again.");

@@ -1,14 +1,29 @@
 import { useEffect, useState } from "react";
 import { baseURL, TOKEN } from "../Api/Api";
 import "./GetEvaluation.css"; 
+import EvaluationSkeleton from "./EvaluationSkeleton";
 
 export default function GetEvaluation() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+  let TOKEN = getCookie("token");
+  
+  if (!TOKEN) {
+  
+    TOKEN = localStorage.getItem("token");
+  }
+  
+  const token = TOKEN;
+
   useEffect(() => {
-    const token = TOKEN;
 
     fetch(`${baseURL}/GetEvaluation`, {
       method: "GET",
@@ -32,7 +47,8 @@ export default function GetEvaluation() {
       });
   }, []);
 
-  if (loading) return <p className="loading">Loading...</p>;
+  // if (loading) return <p className="loading">Loading...</p>;
+  if (loading) return <EvaluationSkeleton />;
   if (error) return <p className="error">{error}</p>;
 
   const renderStars = (rating) => {

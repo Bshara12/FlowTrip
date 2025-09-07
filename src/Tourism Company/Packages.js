@@ -11,7 +11,20 @@ const PackagesTourism = () => {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  console.log(TOKEN);
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+  let TOKEN = getCookie("token");
+  
+  if (!TOKEN) {
+  
+    TOKEN = localStorage.getItem("token");
+  }
+  
+  const token = TOKEN;
   useEffect(() => {
     const fetchPackages = async () => {
       try {
@@ -20,7 +33,7 @@ const PackagesTourism = () => {
           `${baseURL}/${BASETOURISM}/${GET_PACKAGES_FOR_TOURISM}`,
           {
             headers: {
-              Authorization: `Bearer ${TOKEN}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );

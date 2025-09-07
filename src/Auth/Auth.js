@@ -66,7 +66,7 @@ const Auth = () => {
     if (authSuccess === 'true' && token) {
       // Clear URL parameters after processing
       window.history.replaceState({}, document.title, window.location.pathname);
-      
+
       handleAuthSuccess({
         token: token,
         name: decodeURIComponent(userName || ''),
@@ -178,15 +178,19 @@ const Auth = () => {
               break;
             case "Vehicle Owner":
               navigate("/VehiclyOwner/dashboard/vehiclys");
+              navigate("/VehicleOwner/dashboard/vehiclys");
               break;
             case "Tourism Company":
               navigate("/TourismCompany/dashboard/packages");
               break;
-            case "User":
+            case "user":
               navigate("/");
               break;
             case "Airlines Company":
               navigate("/AirlinesCompany/dashboard");
+              break;
+            case "Activity Owner":
+              // navigate("/profile/dashboard");
               break;
             default:
               navigate("/Accommodation/dashboard");
@@ -366,17 +370,14 @@ const Auth = () => {
     }
   };
 
-  
+
   const Sociallogin = () => {
     // Store current URL to return to after OAuth
     localStorage.setItem('oauth_redirect', window.location.pathname);
-    
+
     // Redirect to Google OAuth
     window.location.href = "http://127.0.0.1:8000/auth/google";
   };
-
-
-
 
   return (
     <div className={`registercontainer ${isSignUp ? "sign-up-mode" : ""}`}>
