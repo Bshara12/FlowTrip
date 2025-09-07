@@ -64,7 +64,7 @@ export default function DashboardLayout({ role }) {
         Cookies.remove("authToken");
         toast.success("Logged out successfully!");
         setTimeout(() => {
-          navigate("/login");
+          navigate("/");
         }, 1500);
       } else {
         toast.error("Logout failed. Please try again.");

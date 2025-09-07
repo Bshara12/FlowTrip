@@ -12,11 +12,24 @@ const Vehiclys = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const userId = 7;
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+
+  let TOKEN = getCookie("token");
+
+  if (!TOKEN) {
+
+    TOKEN = localStorage.getItem("token");
+  }
   const token = TOKEN;
 
   useEffect(() => {
     axios
-      .get(`${baseURL}/${VEHICLE_OWNER}/${GET_ALL_VICLYFORUSER}/${userId}`, {
+      .get(`${baseURL}/${VEHICLE_OWNER}/${GET_ALL_VICLYFORUSER}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,12 +63,12 @@ const Vehiclys = () => {
         {loading
           ? Array(3).fill(null).map((_, i) => <VehicleSkeletonCard key={i} />)
           : vehicles.map((vehicle) => (
-              <VehicleCard
-                key={vehicle.vehicle_id}
-                vehicle={vehicle}
-                onClick={() => navigate(`/vehicle/${vehicle.vehicle_id}`)}
-              />
-            ))}
+            <VehicleCard
+              key={vehicle.vehicle_id}
+              vehicle={vehicle}
+              onClick={() => navigate(`/vehicle/${vehicle.vehicle_id}`)}
+            />
+          ))}
       </div>
     </div>
   );

@@ -177,7 +177,7 @@ const Auth = () => {
               navigate("/Admin/dashboard/requist");
               break;
             case "Vehicle Owner":
-              navigate("/VehiclyOwner/dashboard/vehiclys");
+              navigate("/VehicleOwner/dashboard/vehiclys");
               break;
             case "Tourism Company":
               navigate("/TourismCompany/dashboard/packages");

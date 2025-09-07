@@ -46,6 +46,20 @@ const CreateVehicle = () => {
 const handleSubmit = (e) => {
   e.preventDefault();
 
+
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+  
+  let TOKEN = getCookie("token");
+  
+  if (!TOKEN) {
+  
+    TOKEN = localStorage.getItem("token");
+  }
   const token = TOKEN;
   if (!token) {
     toast.error("Authentication token not found.");

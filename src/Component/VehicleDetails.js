@@ -68,7 +68,7 @@ const VehicleDetails = () => {
       })
       .then(() => {
         toast.success("The vehicle has been successfully deleted");
-        navigate("/VehiclyOwner/dashboard/vehiclys");
+        navigate("/VehicleOwner/dashboard/vehiclys");
       })
       .catch(() => {
         toast.error("An error occurred while deleting the vehicle.");

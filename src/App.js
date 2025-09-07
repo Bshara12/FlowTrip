@@ -271,10 +271,10 @@ function App() {
       <Route path="add-room" element={<AddRoom />} />
 
       {/* Vehicly Owner */}
-      <Route path="VehiclyOwner/dashboard" element={<DashboardLayout role="Vehicle Owner" />}>
+      <Route path="VehicleOwner/dashboard" element={<DashboardLayout role="Vehicle Owner" />}>
         <Route path="vehiclys" element={<Vehiclys />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="Evaluation" element={<GetEvaluation />} />
+        <Route path="Evaluation" element={<GetEvaluation/>} />
       </Route>
       <Route path="/vehicle/:id" element={<VehicleDetails />} />
       <Route path="/create-vehicle" element={<CreateVehicle />} />
@@ -323,3 +323,8 @@ function App() {
 }
 
 export default App;
+
+
+
+// VehiclyOwner/dashboard/vehiclys
+// VehicleOwner/dashboard/Evaluation
