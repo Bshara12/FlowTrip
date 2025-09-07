@@ -4,8 +4,22 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
-// <<<<<<< HEAD
-  FaBars,FaTimes,FaUser,FaMoon,FaGlobe,FaPhone,FaHome,FaSuitcase,FaCar,FaHiking,FaRobot,FaBrain,FaInfoCircle,FaEnvelope,} from "react-icons/fa";
+  // <<<<<<< HEAD
+  FaBars,
+  FaTimes,
+  FaUser,
+  FaMoon,
+  FaGlobe,
+  FaPhone,
+  FaHome,
+  FaSuitcase,
+  FaCar,
+  FaHiking,
+  FaRobot,
+  FaBrain,
+  FaInfoCircle,
+  FaEnvelope,
+} from "react-icons/fa";
 import PackageCard from "../Component/PackageCard";
 import Loader from "../Component/Loader";
 import loadingImage from "../Assets/Loading_icon.gif";
@@ -39,6 +53,7 @@ export default function Homepage() {
   const navigate = useNavigate();
   const closeSidebar = () => setIsSidebarOpen(false);
   const closeChatBot = () => setIsChatBotOpen(false);
+  const role = Cookies.get("role");
 
   const handleLogout = async () => {
     const token = Cookies.get("authToken") || localStorage.getItem("token");
@@ -59,7 +74,7 @@ export default function Homepage() {
         Cookies.remove("email");
         Cookies.remove("role");
         Cookies.remove("authToken");
-        
+
         // Redirect to home
         window.location.href = "/";
       }
@@ -81,7 +96,9 @@ export default function Homepage() {
   useEffect(() => {
     const fetchAccommodations = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/getRandomAccommodations");
+        const res = await fetch(
+          "http://127.0.0.1:8000/api/getRandomAccommodations"
+        );
         const data = await res.json();
         if (data) setAccommodations(data);
       } catch (err) {
@@ -127,7 +144,12 @@ export default function Homepage() {
   function ShowMore({ to = "/", label = "Show more" }) {
     const navigate = useNavigate();
     return (
-      <button className="show-more-btn" onClick={() => navigate(to)} aria-label={label} title={label}>
+      <button
+        className="show-more-btn"
+        onClick={() => navigate(to)}
+        aria-label={label}
+        title={label}
+      >
         {label}
         <span className="show-more-arrow">›</span>
       </button>
@@ -147,9 +169,18 @@ export default function Homepage() {
     swipeToSlide: true,
     lazyLoad: "anticipated",
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: Math.min(Math.max(packages.length, 1), 3) } },
-      { breakpoint: 992, settings: { slidesToShow: Math.min(Math.max(packages.length, 1), 2) } },
-      { breakpoint: 600, settings: { slidesToShow: 1, centerMode: true, centerPadding: "12px" } },
+      {
+        breakpoint: 1200,
+        settings: { slidesToShow: Math.min(Math.max(packages.length, 1), 3) },
+      },
+      {
+        breakpoint: 992,
+        settings: { slidesToShow: Math.min(Math.max(packages.length, 1), 2) },
+      },
+      {
+        breakpoint: 600,
+        settings: { slidesToShow: 1, centerMode: true, centerPadding: "12px" },
+      },
     ],
   };
 
@@ -179,7 +210,9 @@ export default function Homepage() {
     if (!phone) return null;
     const digits = String(phone).replace(/\D/g, "");
     if (!digits) return null;
-    const msg = `Hello, I'm interested in "${activityName}"${loc ? ` in ${loc}` : ""}. Is it available?`;
+    const msg = `Hello, I'm interested in "${activityName}"${
+      loc ? ` in ${loc}` : ""
+    }. Is it available?`;
     return `https://wa.me/${digits}?text=${encodeURIComponent(msg)}`;
   };
 
@@ -199,24 +232,40 @@ export default function Homepage() {
       <nav className="navbar">
         <h2 className="logo">Flow Trip</h2>
         <div className="navbar-icons">
-          <div className="chatbot-icon" onClick={() => setIsChatBotOpen(true)} title="Chat Bot">
+          <div
+            className="chatbot-icon"
+            onClick={() => setIsChatBotOpen(true)}
+            title="Chat Bot"
+          >
             <img src={chatbotGif} alt="Chat Bot" className="chatbot-gif" />
           </div>
-          
+
           {/* Conditional Register/Logout Button */}
           {TOKEN ? (
-            <div className="auth-btn logout-btn" onClick={() => setShowLogoutConfirm(true)} title="Logout">
+            <div
+              className="auth-btn logout-btn"
+              onClick={() => setShowLogoutConfirm(true)}
+              title="Logout"
+            >
               <i className="fa-solid fa-right-from-bracket"></i>
               <span>Logout</span>
             </div>
           ) : (
-            <div className="auth-btn register-btn" onClick={() => navigate("/register")} title="Register">
+            <div
+              className="auth-btn register-btn"
+              onClick={() => navigate("/register")}
+              title="Register"
+            >
               <FaUser />
               <span>Register</span>
             </div>
           )}
-          
-          <div className="menu-icon" onClick={() => setIsSidebarOpen(true)} title="Settings">
+
+          <div
+            className="menu-icon"
+            onClick={() => setIsSidebarOpen(true)}
+            title="Settings"
+          >
             <FaBars />
           </div>
         </div>
@@ -224,17 +273,24 @@ export default function Homepage() {
 
       {/* Buttons */}
       <div className="nav-buttons">
-        <button onClick={() => navigate("/packages")}><FaSuitcase /> Packages</button>
-        <button onClick={() => navigate("/All-Activity")}><FaHiking /> Activities</button>
-        <button onClick={() => navigate("/accommodation-filter")}><FaHome /> accommodations</button>
-        <button onClick={() => navigate("/car-filter")}><FaCar /> Cars</button>
+        <button onClick={() => navigate("/packages")}>
+          <FaSuitcase /> Packages
+        </button>
+        <button onClick={() => navigate("/All-Activity")}>
+          <FaHiking /> Activities
+        </button>
+        <button onClick={() => navigate("/accommodation-filter")}>
+          <FaHome /> accommodations
+        </button>
+        <button onClick={() => navigate("/car-filter")}>
+          <FaCar /> Cars
+        </button>
       </div>
 
       {/* Overlay sidebar */}
       {isSidebarOpen && <div className="overlay" onClick={closeSidebar}></div>}
       {/* Overlay chatbot */}
       {isChatBotOpen && <div className="overlay" onClick={closeChatBot}></div>}
-
 
       {/* Sidebar */}
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
@@ -245,15 +301,64 @@ export default function Homepage() {
           </button>
         </div>
         <ul>
-          <li onClick={() => navigate('/trip')}>
+          <li onClick={() => navigate("/trip")}>
             <i className="fas fa-brain"></i>
             <p>Make a plan</p>
           </li>
-          <li onClick={() => navigate('/about-us')}>
+          {role && role !== "" && role !== "user" && (
+            <>
+              {role === "Airline" && (
+                <li onClick={() => navigate("/plans")}>
+                  <i className="fas fa-plane"></i>
+                  <p>Dashboard</p>
+                </li>
+              )}
+              {role === "Tourism Company" && (
+                <li
+                  onClick={() => navigate("/TourismCompany/dashboard/packages")}
+                >
+                  <i className="fas fa-suitcase"></i>
+                  <p>Dashboard</p>
+                </li>
+              )}
+              {role === "admin" && (
+                <li onClick={() => navigate("/Admin/dashboard")}>
+                  <i className="fas fa-suitcase"></i>
+                  <p>Dashboard</p>
+                </li>
+              )}
+              {role === "Vehicle Owner" && (
+                <li onClick={() => navigate("/VehiclyOwner/dashboard/vehiclys")}>
+                  <i className="fas fa-suitcase"></i>
+                  <p>Dashboard</p>
+                </li>
+              )}
+              {/* {role === "ActivityOwner" && (
+                <li
+                  onClick={() => navigate("/")}
+                >
+                  <i className="fas fa-suitcase"></i>
+                  <p>Dashboard</p>
+                </li>
+              )} */}
+              {role !== "Airline" &&
+                role !== "Tourism Company" &&
+                role !== "admin" &&
+                role !== "Airlines Company" &&
+                role !== "ActivityOwner" && 
+                role !== "Vehicle Owner" && (
+                  <li onClick={() => navigate("/Accommodation/dashboard")}>
+                    <i className="fas fa-home"></i>
+                    <p>Dashboard</p>
+                  </li>
+                )}
+            </>
+          )}
+          <li onClick={() => navigate("/about-us")}>
             <i className="fas fa-info-circle"></i>
             <p>About Us</p>
           </li>
-          <li onClick={() => window.open('https://wa.me/0938246910', '_blank')}>
+          <li onClick={() => window.open("https://wa.me/0938246910", "_blank")}>
             <i className="fas fa-envelope"></i>
             <p>Connect Us</p>
           </li>
@@ -317,25 +422,35 @@ export default function Homepage() {
       </div>
 
       {/* Activities */}
-      <h2 style={{ textAlign: "center", margin: "60px 0 20px", color: "#2c3e50" }}>
+      <h2
+        style={{ textAlign: "center", margin: "60px 0 20px", color: "#2c3e50" }}
+      >
         🌟 Discover our special activities 🌟
       </h2>
 
       {loadingActivities ? (
         <div className="activities-grid">
-          {[0, 1].map((i) => <ActivityCardSkeleton key={`a-lg-${i}`} size="large" />)}
-          {[0, 1, 2].map((i) => <ActivityCardSkeleton key={`a-sm-${i}`} size="small" />)}
+          {[0, 1].map((i) => (
+            <ActivityCardSkeleton key={`a-lg-${i}`} size="large" />
+          ))}
+          {[0, 1, 2].map((i) => (
+            <ActivityCardSkeleton key={`a-sm-${i}`} size="small" />
+          ))}
         </div>
       ) : (
         <div className="activities-grid">
           {activities.map((act, index) => (
             <div
               key={act.id}
-              className={`activity-card ${index < 2 ? "large-card" : "small-card"}`}
+              className={`activity-card ${
+                index < 2 ? "large-card" : "small-card"
+              }`}
               onClick={() => openActivityModal(act)}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? openActivityModal(act) : null)}
+              onKeyDown={(e) =>
+                e.key === "Enter" ? openActivityModal(act) : null
+              }
             >
               <img
                 src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
@@ -345,7 +460,9 @@ export default function Homepage() {
               <div className="activity-overlay">
                 <h3>{act.activity_name}</h3>
                 <p>{act.owner_name}</p>
-                <p>{act.location}, {act.country_name}</p>
+                <p>
+                  {act.location}, {act.country_name}
+                </p>
               </div>
             </div>
           ))}
@@ -357,7 +474,9 @@ export default function Homepage() {
       </div>
 
       {/* Accommodations */}
-      <h2 style={{ textAlign: "center", margin: "60px 0 20px", color: "#2c3e50" }}>
+      <h2
+        style={{ textAlign: "center", margin: "60px 0 20px", color: "#2c3e50" }}
+      >
         🏡 Discover our special stays 🏡
       </h2>
       <div className="section-divider"></div>
@@ -379,16 +498,22 @@ export default function Homepage() {
                 onClick={() => handleAccommodationCardClick(acc)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => (e.key === "Enter" ? handleAccommodationCardClick(acc) : null)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" ? handleAccommodationCardClick(acc) : null
+                }
                 title="View details"
               >
                 <img
                   src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80"
-                  alt={acc.type_name || acc.accommodation_name || "Accommodation"}
+                  alt={
+                    acc.type_name || acc.accommodation_name || "Accommodation"
+                  }
                   className="accommodation-img"
                 />
                 <div className="accommodation-info">
-                  <h3>{acc.type_name || acc.accommodation_name || "Accommodation"}</h3>
+                  <h3>
+                    {acc.type_name || acc.accommodation_name || "Accommodation"}
+                  </h3>
                   <p>{acc.owner_location || acc.location}</p>
                   <p>
                     {hasOffer ? (
@@ -425,17 +550,29 @@ export default function Homepage() {
           >
             <div className="modal-header">
               <h3 id="actModalTitle">Do you want to book this activity?</h3>
-              <button className="modal-close" onClick={closeActivityModal} aria-label="Close">×</button>
+              <button
+                className="modal-close"
+                onClick={closeActivityModal}
+                aria-label="Close"
+              >
+                ×
+              </button>
             </div>
 
             <div className="modal-body">
               <p className="modal-title">{selectedActivity.activity_name}</p>
-              <p className="modal-row"><strong>Owner:</strong> {selectedActivity.owner_name || "—"}</p>
+              <p className="modal-row">
+                <strong>Owner:</strong> {selectedActivity.owner_name || "—"}
+              </p>
               <p className="modal-row">
                 <strong>Phone:</strong>{" "}
                 {selectedActivity.phone_number ? (
-                  <a href={`tel:${selectedActivity.phone_number}`}>{selectedActivity.phone_number}</a>
-                ) : "—"}
+                  <a href={`tel:${selectedActivity.phone_number}`}>
+                    {selectedActivity.phone_number}
+                  </a>
+                ) : (
+                  "—"
+                )}
               </p>
             </div>
 
@@ -454,7 +591,9 @@ export default function Homepage() {
                   Contact on WhatsApp
                 </a>
               ) : (
-                <button className="btn btn-disabled" disabled>WhatsApp unavailable</button>
+                <button className="btn btn-disabled" disabled>
+                  WhatsApp unavailable
+                </button>
               )}
               <button className="btn btn-danger" onClick={closeActivityModal}>
                 <FaTimes style={{ marginRight: 6 }} /> Close

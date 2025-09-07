@@ -7,8 +7,6 @@ import "../Admin/DashBourd.css";
 import { baseURL, LOGOUT } from "../Api/Api";
 
 const role = Cookies.get("role");
-console.log(role)
-
 
 // تعريف المينيوهات لكل نوع مستخدم
 const menus = {
@@ -33,8 +31,12 @@ const menus = {
   Accommodation: [
     { path: "profile", label: "Profile", icon: "fas fa-user" },
     { path: "records", label: "Records", icon: "fas fa-clipboard-list" },
-    ...(role === "Hotel" ? [{ path: "rooms", label: "Rooms", icon: "fas fa-bed" }] : []),
-    ...(role === "Hotel" ? [{ path: "offers", label: "Offers", icon: "fas fa-gift" }] : []),
+    ...(role === "Hotel"
+      ? [{ path: "rooms", label: "Rooms", icon: "fas fa-bed" }]
+      : []),
+    ...(role === "Hotel"
+      ? [{ path: "offers", label: "Offers", icon: "fas fa-gift" }]
+      : []),
     { path: "advanced", label: "Advanced", icon: "fas fa-cogs" },
   ],
 };
@@ -45,6 +47,11 @@ export default function DashboardLayout({ role }) {
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  const handleToggleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
 
   useEffect(() => {
     setActiveLink(location.pathname);
@@ -80,7 +87,7 @@ export default function DashboardLayout({ role }) {
   return (
     <div className="maincontainer">
       <ToastContainer position="top-right" autoClose={3000} />
-      <div className={`sidpare ${isMobileMenuOpen ? "open" : ""}`}>
+      <div className={`sidpare ${isMobileMenuOpen ? "open" : ""} ${collapsed ? "collapsed" : ""}`}>
         {/* زر الموبايل */}
         <div
           className="mobile-menu-btn"
@@ -89,10 +96,24 @@ export default function DashboardLayout({ role }) {
           <i className="fa-solid fa-bars"></i>
         </div>
 
-        <img
-          src={require("../Assets/logo-removebg-preview.png")}
-          alt="Logo"
+        <img 
+          src={require("../Assets/logo-removebg-preview.png")} 
+          alt="Logo" 
+          className={collapsed ? "small" : ""}
         />
+        
+        {/* زر التوسيع/الانكماش */}
+        <div
+          className="longright"
+          onClick={handleToggleCollapse}
+          style={{ color: "var(--color1)" }}
+        >
+          <i
+            className={`fa-solid fa-arrow-right-long ${
+              !collapsed ? "expanded" : ""
+            }`}
+          ></i>
+        </div>
 
         {/* روابط القائمة حسب الدور */}
         <div className="menu-links">
@@ -100,9 +121,7 @@ export default function DashboardLayout({ role }) {
             <Link
               key={idx}
               to={`/${role.replace(" ", "")}/dashboard/${item.path}`}
-              className={
-                activeLink.includes(item.path) ? "active-link" : ""
-              }
+              className={activeLink.includes(item.path) ? "active-link" : ""}
             >
               <i className={item.icon}></i>
               <p>{item.label}</p>

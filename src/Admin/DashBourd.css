@@ -1,3 +1,7 @@
+#root {
+  background: var(--color5)
+}
+
 .maincontainer {
   background: var(--color5);
   display: flex;

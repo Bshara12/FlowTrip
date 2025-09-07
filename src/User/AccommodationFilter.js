@@ -184,14 +184,12 @@ export default function AccommodationFilter() {
   }, [selectedTypeId, selectedCountryId, placeName, region, dateRange, guests]);
 
   const handleSearch = () => {
-    // Validate dates first
     const hasDates = Boolean(dateRange[0]?.startDate && dateRange[0]?.endDate);
     if (!hasDates) {
       toast.error("Please select dates first");
       setShowDateModal(true);
       return;
     }
-    // Lock the view to the type at the time of search
     setLastSearchTypeName(selectedTypeName);
     doSearch();
   };

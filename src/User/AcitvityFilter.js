@@ -41,7 +41,6 @@ export default function ActivityFilter() {
     }
   }, [activities, countryName]);
 
-  // دالة لإرجاع الجملة الوصفية لكل نشاط
   const getActivityDescription = (activityName) => {
     const descriptions = {
       Swimming: "I feel hot and need to refresh in the water",
@@ -71,7 +70,6 @@ export default function ActivityFilter() {
     );
   };
 
-  // دالة للحصول على اسم النشاط الأصلي من الجملة الوصفية
   const getActivityNameFromDescription = (description) => {
     const descriptions = {
       "I feel hot and need to refresh in the water": "Swimming",
@@ -96,7 +94,6 @@ export default function ActivityFilter() {
       "I want to record unforgettable memories": "Videography",
     };
 
-    // إذا كانت الجملة من النوع "I want to test ActivityName"، استخرج اسم النشاط
     if (description.startsWith("I want to test ")) {
       return description.replace("I want to test ", "");
     }
@@ -112,10 +109,11 @@ export default function ActivityFilter() {
         "http://127.0.0.1:8000/api/filterActivities",
         {
           activity_name: getActivityNameFromDescription(selectedActivity),
-          country_name: countryName,
+          country_name: 'Antigua',
           location: searchTerm,
         }
       );
+      console.log(response.data.data)
       setData(response.data.data);
     } catch (e) {
       console.log("Error: " + e);
